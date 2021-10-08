@@ -1,0 +1,17 @@
+#main_canvas {
+    position: absolute;
+    top:50px;
+    width: 1000px;
+    height: 800px;
+}
+.container {
+    position: relative;
+}
+.overlay {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+.button{
+    position: absolute;
+}

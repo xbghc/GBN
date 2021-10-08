@@ -1,0 +1,53 @@
+<head>
+  <meta charset="utf8">
+</head>
+
+<link rel="stylesheet" type="text/css" href="theme.css" />
+<!-- vertex shader -->
+<script id="vertex-shader-2d" type="notjs">
+    attribute vec4 a_position;
+    attribute vec4 a_color;
+  
+    uniform vec2 u_resolution;
+
+    varying vec4 v_color;
+  
+    void main() {
+       // convert the position from pixels to 0.0 to 1.0
+       vec2 zeroToOne = a_position.xy / u_resolution;
+  
+       // convert from 0->1 to 0->2
+       vec2 zeroToTwo = zeroToOne * 2.0;
+  
+       // convert from 0->2 to -1->+1 (clipspace)
+       vec2 clipSpace = zeroToTwo - 1.0;
+  
+       gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
+
+       // set color
+       v_color = a_color;
+    }
+  </script>
+<!-- fragment shader -->
+<script id="fragment-shader-2d" type="notjs">
+    precision mediump float;
+    varying vec4 v_color;
+  
+    void main() {
+      gl_FragColor = v_color;
+    }
+  </script>
+
+<div class="container" id="container">
+  <canvas id="main_canvas"></canvas>
+  <button id="start" onclick="start()" class="button" style="left: 10px;top: 10px">开始</button>
+  <button id="pause" onclick="pause()" class="button" style="left: 60px;top: 10px">暂停</button>
+  <button id="remove" onclick="remove()" class="button" style="left: 110px;top: 10px">移除</button>
+  <button id="clear" onclick="clear_canvas()" class="button" style="left: 160px;top: 10px">清空画板</button>
+</div>
+
+<script src="events.js"></script>
+<script src="https://webglfundamentals.org/webgl/resources/webgl-utils.js"></script>
+<script src="init_WebGL.js"></script>
+<script src="packet_sending.js"></script>
+<script src="main.js"></script>
